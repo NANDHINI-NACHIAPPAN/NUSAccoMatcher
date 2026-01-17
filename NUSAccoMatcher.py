@@ -4,7 +4,7 @@ import re
 import textwrap
 
 # 1. Page Config
-st.set_page_config(page_title="NUS HomeMatch", page_icon="🏠", layout="wide")
+st.set_page_config(page_title="NUSAccoMatcher", page_icon="🏠", layout="wide")
 
 # 2. Styling (NUS Branding)
 st.markdown("""
@@ -106,8 +106,18 @@ def calculate_score(row):
 
     return score, " • ".join(feedback)
 
-# --- MAIN DISPLAY ---
-st.image("https://nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg", width=300)
+# --- MAIN DISPLAY: LOGO + TITLE NEXT TO EACH OTHER ---
+# Create two columns: one for the logo (small) and one for the title
+logo_col, title_col = st.columns([1, 4]) 
+
+with logo_col:
+    st.image("https://nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg", width=150)
+
+with title_col:
+    # Adding vertical space to align text with the middle of the logo
+    st.markdown("<br>", unsafe_allow_html=True) 
+    st.markdown("<h1 style='color: #003D7C; margin-top: 0;'>NUSAccoMatcher</h1>", unsafe_allow_html=True)
+
 data = load_clean_data()
 
 if not data.empty:
